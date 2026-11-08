@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090611">
+<title>Para Ryza ❤️</title>
+<style>
+:root{--bg:#090611;--violet:#a855f7;--pink:#ff5bbd;--white:#fff4ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--white);font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(ellipse at 50% 38%,#28103d 0%,#12091f 42%,#07050c 100%);display:flex;align-items:center;justify-content:center;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;width:38vmax;height:38vmax;border-radius:50%;filter:blur(90px);opacity:.18;pointer-events:none}
+body:before{background:#8b2be2;top:-20vmax;left:-18vmax}body:after{background:#ed3ca9;bottom:-23vmax;right:-18vmax}
+main{width:min(100%,760px);padding:30px 18px 38px;text-align:center;position:relative;z-index:1}
+.eyebrow{letter-spacing:.28em;text-transform:uppercase;color:#d6a8ff;font-size:.72rem}
+h1{font-size:clamp(2rem,8vw,3.7rem);margin:.45rem 0 .35rem;line-height:1.05;text-shadow:0 0 28px #b44dff66}
+.subtitle{color:#d9c9e7;margin:0 auto 22px;max-width:470px;line-height:1.5}
+.stage{position:relative;width:min(90vw,520px);height:min(90vw,520px);margin:0 auto 18px;display:grid;place-items:center}
+canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 0 22px #d946ef35)}
+.center-name{position:absolute;top:50%;left:50%;transform:translate(-50%,-46%);font-size:clamp(1.5rem,7vw,2.6rem);font-weight:800;letter-spacing:.04em;color:#fff;text-shadow:0 0 12px #ff65c7,0 0 28px #b44dff;pointer-events:none}
+button{border:1px solid #d99bff88;border-radius:999px;padding:15px 28px;background:linear-gradient(120deg,#7026a8,#b52e91);color:white;font-size:1rem;font-weight:750;box-shadow:0 0 28px #a855f755;cursor:pointer;transition:transform .2s,filter .2s}
+button:active{transform:scale(.97)}button:hover{filter:brightness(1.15)}
+.note{color:#c9b5d8;font-size:.82rem;margin-top:15px}
+#message{min-height:1.5em;color:#f7c9ed;margin-top:13px;font-size:.95rem}
+.heart{position:fixed;bottom:-30px;animation:floatUp linear forwards;pointer-events:none;z-index:0}
+@keyframes floatUp{to{transform:translateY(-110vh) translateX(var(--drift));opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">un pequeño universo para ti</div>
+  <h1>Para Ryza</h1>
+  <p class="subtitle">Un corazón hecho de muchas formas de decir lo mismo:<br><strong>te amo.</strong></p>
+  <div class="stage">
+    <canvas id="heart" aria-label="Corazón formado por te amo en diferentes idiomas"></canvas>
+    <div class="center-name">RYZA</div>
+  </div>
+  <button id="build">❤️ Crear nuestro corazón</button>
+  <div id="message" aria-live="polite">Toca el botón y mira cómo se llena de amor.</div>
+  <p class="note">En muchos idiomas, con el mismo sentimiento. ♡</p>
+</main>
+<script>
+const phrases = [
+"Te amo","I love you","Je t’aime","Ich liebe dich","Ti amo","Eu te amo","愛してる","사랑해","Я тебя люблю","我爱你","我愛你","أحبك","אני אוהב אותך","मैं तुमसे प्यार करता हूँ","আমি তোমাকে ভালোবাসি","ผมรักคุณ","ฉันรักคุณ","ฉันรักเธอ","ฉันฮักเจ้า","Mahal kita","Iniibig kita","Saya cinta kamu","Aku cinta kamu","Saya sayang kamu","Nakupenda","Ngiyakuthanda","Ndinokuda","Ndagukunda","A hụrụ m gị n’anya","Mo nífẹ̀ẹ́ rẹ","Mi爱你","Nalingi yo","Rwy’n dy garu di","Tha gaol agam ort","T’estimo","Aşkım, seni seviyorum","Seni seviyorum","Miluji tě","Ľúbim ťa","Kocham cię","Mám ťa rád","Szeretlek","Te iubesc","Обичам те","Волим те","Ljubim te","Volim te","Я кохаю тебе","Я цябе кахаю","Ég elska þig","Rakastan sinua","Jag älskar dig","Jeg elsker deg","Jeg elsker dig","Ik hou van jou","Ik zie je graag","Ma armastan sind","Es tevi mīlu","Aš tave myliu","Tave myliu","Kocham cię","愛してるよ","大好きだよ","사랑해요","사랑한다","我愛你","我喜欢你","我鍾意你","我愛妳","我爱你","我喜欢你","我钟意你","আমি তোমায় ভালোবাসি","म तिमीलाई माया गर्छु","நான் உன்னை காதலிக்கிறேன்","నేను నిన్ను ప్రేమిస్తున్నాను","ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ","ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു","હું તને પ્રેમ કરું છું","હું તમને પ્રેમ કરું છું","હું તને ચાહું છું","હું તને પ્રેમ કરું છું","હું તને ચાહું છું","میں تم سے محبت کرتا ہوں","میں تم سے پیار کرتا ہوں","میں تم سے محبت کرتی ہوں","دوستت دارم","من دوستت دارم","دوستت دارم","أحبكِ","بحبك","أنا أحبك","Ez te amo","Mi amas vin","Volim te","Te sakam","Të dua","Të dashuroj","Unë të dua","Kocham ciebie","Lubię cię","S’agapo","Σ’ αγαπώ","Σε αγαπώ","Te dua","Te iubesc mult","Miluji tě moc","Miluji ťa","Kärlek till dig","Jag älskar dig","Jeg elsker deg","Ég elska þig","Ik hou van je","Ek is lief vir jou","Ek het jou lief","Ek is lief vir jou","Ke a go rata","Ke a u rata","Ke go rata","Ndinokuda","Ndiyakuthanda","Ngiyakuthanda","Nakupenda sana","Ndagukunda cyane","Aşkım","Seni çok seviyorum","Mwen renmen ou","Mwen renmen w","Mwen kontan avè w","Mi ta stimabo","Mi stima bo","Mi ta stima bo","Mi lobi yu","Mi lubi yu","Mi laikim yu","Aroha ahau ki a koe","Ke aloha nei au iā ʻoe","Ua here vau ia oe","Ou te alofa ia te oe","Aloha wau iā ʻoe","Rohayhu","Che rohayhu","Te quiero","T’estimo molt","Et trobo a faltar","M’bi fe","Nya rem","Me do wo","Woɔlɔ","N b’i fɛ","N b’i kanu","Mina rakastan sinua","Mwen renmen ou","Kuv hlub koj","Kuv hlub koj heev","Kuv hlub koj","Ka renmen wena","Ke a go rata","Ndinokuda zvikuru","Ndiyakuthanda kakhulu","Nalingi yo mingi","A hụrụ m gị n’anya","Ina son ki","Ina son ka","Mi amas vin","Mi amas vin tre","Te iubesc","Te quiero mucho","Ti tengu caru","Ti tengu cara","Ti tengu caru","Mi te quiero","Amo-te","Amo você","Eu gosto de você","Te adoro","Te quiero","Je t’adore","Je t’aime fort","Ich hab dich lieb","Ich hab dich lieb","Ich liebe dich sehr","Ti voglio bene","Ti amo tanto","Szeretlek nagyon","Kocham cię bardzo","Miluji tě","Miluju tě","Люблю тебя","Я тебе кохаю","Кахаю цябе","Волим те много","Ljubim te puno","Volim te puno","Te iubesc mult","Ես քեզ սիրում եմ","Ես քեզ սիրում եմ շատ","Ես քեզ սիրում եմ","Ես սիրում եմ քեզ","მე შენ მიყვარხარ","მიყვარხარ","მიყვარხარ ძალიან","მიყვარხარ","მიყვარხარ","მიყვარხარ"
+];
+const canvas=document.getElementById('heart'),ctx=canvas.getContext('2d');
+let frame=0, anim=null;
+function heartInside(x,y){
+  const X=(x-.5)*2, Y=(y-.5)*2;
+  const a=X*X+Y*Y-1;
+  return a*a*a-X*X*Y*Y*Y<=0;
+}
+function draw(){
+  const box=canvas.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.round(box.width*dpr);canvas.height=Math.round(box.height*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const w=box.width,h=box.height,scale=Math.min(w,h),left=(w-scale)/2,top=(h-scale)/2;
+  ctx.clearRect(0,0,w,h);
+  const size=Math.max(9,scale/39), step=size*2.05;
+  let idx=0;
+  // Fill a mathematically defined heart with rows of multilingual phrases.
+  for(let y=top+size;y<top+scale-size;y+=step){
+    for(let x=left+size;x<left+scale-size;x+=step){
+      if(heartInside((x-left)/scale,(y-top)/scale)){
+        const p=phrases[(idx*7+frame*13)%phrases.length];
+        const hue=285+((idx*11+frame*7)%65);
+        ctx.font=`${idx%5===0?'700':'600'} ${size}px system-ui, sans-serif`;
+        ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillStyle=`hsl(${hue} 100% ${70+(idx%4)*5}%)`;
+        ctx.shadowColor=`hsla(${hue},100%,65%,.45)`;ctx.shadowBlur=5;
+        ctx.fillText(p,x,y,step*2.5);ctx.shadowBlur=0;
+        idx++;
+      }
+    }
+  }
+  // Soft outline
+  ctx.save();ctx.translate(left,top);ctx.scale(scale,scale);
+  ctx.beginPath();
+  for(let t=0;t<=Math.PI*2;t+=.01){
+    const x=.5+.42*16*Math.pow(Math.sin(t),3)/16;
+    const y=.5-.42*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/16;
+    if(t===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();ctx.strokeStyle='#f5a6ff55';ctx.lineWidth=.004;ctx.stroke();ctx.restore();
+}
+function burst(){
+  for(let i=0;i<24;i++){
+    const e=document.createElement('span');e.className='heart';e.textContent=['♡','♥','✦'][i%3];
+    e.style.left=Math.random()*100+'vw';e.style.fontSize=(12+Math.random()*22)+'px';
+    e.style.color=['#ff75cf','#d5a0ff','#ffffff'][i%3];
+    e.style.animationDuration=(3+Math.random()*3)+'s';e.style.setProperty('--drift',(Math.random()*120-60)+'px');
+    document.body.appendChild(e);setTimeout(()=>e.remove(),6500);
+  }
+}
+document.getElementById('build').addEventListener('click',()=>{
+  frame++;draw();burst();
+ document.getElementById('message').textContent='Ryza, en cualquier idioma, mi corazón te elige. ❤️';
+});
+window.addEventListener('resize',draw);
+draw();
+</script>
+</body>
+</html>
